@@ -3,20 +3,21 @@ var stitch = document.getElementById("stitch");
 var lights = document.getElementById("lights");
 var finish = document.getElementById("finish");
 var winner = document.getElementById("winner");
-finish.addEventListener("click", startOver);
+finish.addEventListener("click", start);
 document.getElementById("start").addEventListener("click", timer);
 var liloOffset = lilo.offsetLeft;
 var stitchOffset = stitch.offsetLeft;
 var startTimer;
 
-function timer(){
-    document.getElementById("start").removeEventListener("click", timer);
-    liloOffset = 150;
-    stitchOffset = 150;
+start();
+
+function timer(){    
+    document.getElementById("start").removeEventListener("click", timer);    
     startTimer = setInterval(race, 100);
 }
 
-function startOver(){    
+function start(){   
+    document.getElementById("start").addEventListener("click", timer); 
     liloOffset = 150;
     stitchOffset =150;
     finish.className = "hide";
@@ -32,14 +33,15 @@ function startOver(){
     console.log(liloOffset);
     lights.style.position = "absolute";
     lights.style.bottom = "5px";
-    document.getElementById("start").addEventListener("click", timer);
     //window.location.reload();
 }
 
-function race(){ 
+function race(){     
+    document.getElementById("start").removeEventListener("click", timer);
     console.log(stitchOffset);
     console.log(liloOffset);     
     lights.src = "greenlight1.png";
+    
     var liloTopOffset = lilo.offsetTop;
     var stitchTopOffset = stitch.offsetTop;
     
